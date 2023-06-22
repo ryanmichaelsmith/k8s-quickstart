@@ -19,5 +19,5 @@
   ```
 
 ### Future work
-- Create Ansible Playbook smilar to:
+- Create Ansible Playbook similar to:
   https://buildvirtual.net/deploy-a-kubernetes-cluster-using-ansible/
