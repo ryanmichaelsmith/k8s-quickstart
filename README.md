@@ -9,7 +9,9 @@
   kubeadm init --control-plane-endpoint k8s-control-plane --pod-network-cidr=$POD_NETWORK_CIDR
   export KUBECONFIG=/etc/kubernetes/admin.conf
   kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/tigera-operator.yaml
-  kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/custom-resources.yaml
+  curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/custom-resources.yaml
+  sed -i -E "s|cidr: [0-9\.\/]+|cidr: $POD_NETWORK_CIDR|g" ./custom-resources.yaml
+  kubectl create -f ./custom-resources.yaml
   ```
 - For worker node, run this on the control-plane node and run the resultant command on the new worker node:
   ```
