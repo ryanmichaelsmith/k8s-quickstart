@@ -28,15 +28,25 @@ sudo sysctl --system
 
 
 curl -OL https://github.com/containerd/containerd/releases/download/v1.7.2/containerd-1.7.2-linux-amd64.tar.gz
-tar Cxzvf /usr/local containerd-1.6.2-linux-amd64.tar.gz
+tar Cxzvf /usr/local containerd-1.7.2-linux-amd64.tar.gz
 
 curl -O https://raw.githubusercontent.com/containerd/containerd/main/containerd.service
+mkdir -p /usr/local/lib/systemd/system/
 mv ./containerd.service /usr/local/lib/systemd/system/containerd.service
+systemctl daemon-reload
+systemctl enable --now containerd
 
 
-mkdir /etc/containerd
+mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
 sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml
+
+curl -O https://github.com/opencontainers/runc/releases/download/v1.1.7/runc.amd64
+install -m 755 runc.amd64 /usr/local/sbin/runc
+
+curl -OL https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
+mkdir -p /opt/cni/bin
+tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
 
 
 curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
