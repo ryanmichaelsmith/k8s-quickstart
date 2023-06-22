@@ -1,6 +1,6 @@
 # k8s-quickstart
 
-For each node:
+### For each node:
 - Edit /etc/hosts and add all nodes (or update dns)
 - Run quickstart.sh
 - For control-plane node:
@@ -14,3 +14,7 @@ For each node:
   ```
   kubeadm token create --print-join-command
   ```
+
+### Future work
+- Create Ansible Playbook smilar to:
+  https://buildvirtual.net/deploy-a-kubernetes-cluster-using-ansible/
