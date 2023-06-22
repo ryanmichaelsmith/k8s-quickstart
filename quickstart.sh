@@ -4,7 +4,7 @@ set -eux
 
 apt-get update && apt-get upgrade -y
 
-apt-get install -y jq curl gnupg apt-transport-https ca-certificates
+apt-get install -y jq curl gnupg apt-transport-https ca-certificates vim
 
 
 # Forwarding IPv4 and letting iptables see bridged traffic
@@ -40,8 +40,9 @@ systemctl enable --now containerd
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
 sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml
+systemctl restart containerd
 
-curl -O https://github.com/opencontainers/runc/releases/download/v1.1.7/runc.amd64
+curl -OL https://github.com/opencontainers/runc/releases/download/v1.1.7/runc.amd64
 install -m 755 runc.amd64 /usr/local/sbin/runc
 
 curl -OL https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
