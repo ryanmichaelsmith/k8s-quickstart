@@ -5,7 +5,8 @@
 - Run quickstart.sh
 - For control-plane node:
   ```
-  kubeadm init --control-plane-endpoint k8s-control-plane --pod-network-cidr=192.168.0.0/16
+  export POD_NETWORK_CIDR="192.168.0.0/16"
+  kubeadm init --control-plane-endpoint k8s-control-plane --pod-network-cidr=$POD_NETWORK_CIDR
   export KUBECONFIG=/etc/kubernetes/admin.conf
   kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/tigera-operator.yaml
   kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/custom-resources.yaml
