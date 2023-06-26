@@ -4,7 +4,7 @@ set -eux
 
 apt-get update && apt-get upgrade -y
 
-apt-get install -y jq curl gnupg apt-transport-https ca-certificates
+apt-get install -y jq curl gnupg apt-transport-https ca-certificates containerd
 
 
 # Forwarding IPv4 and letting iptables see bridged traffic
